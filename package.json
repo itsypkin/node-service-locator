@@ -1,0 +1,20 @@
+{
+  "name": "locator",
+  "description": "service locator",
+  "version": "0.0.1",
+  "author": {
+    "name": "jhony_chikens",
+    "email": "evts85@gmail.com"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*",
+    "sinon": "*"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "engines": {
+    "node": "*"
+  }
+}

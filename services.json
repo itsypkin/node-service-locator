@@ -1,0 +1,19 @@
+{
+    "test": {
+        "logger": {
+            "path": "Log/Logger"
+        },
+
+        "classLogger": {
+            "path": "Log/ClassLogger",
+            "instantiate": true,
+            "params": ["warning"]
+        },
+
+        "testClassWithLogger": {
+            "path": "Log/TestClassWithLogger",
+            "instantiate": true,
+            "params": ["foo", "@classLogger", 23]
+        }
+    }
+}
