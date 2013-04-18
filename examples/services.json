@@ -1,17 +1,17 @@
 {
     "test": {
         "logger": {
-            "path": "Log/Logger"
+            "path": "Services/Logger"
         },
 
         "classLogger": {
-            "path": "Log/ClassLogger",
+            "path": "Services/ClassLogger",
             "instantiate": true,
             "params": ["warning"]
         },
 
         "testClassWithLogger": {
-            "path": "Log/TestClassWithLogger",
+            "path": "Services/TestClassWithLogger",
             "instantiate": true,
             "params": ["foo", "@classLogger", 23]
         }

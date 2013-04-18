@@ -1,15 +1,13 @@
 
 var path = require('path');
-var services = require('./services');
 
 var BASE_DIR = __dirname;
 var DEPENDENCY_MARKER = '@';
 
-
-var Locator = function (env, baseDir) {
+var Locator = function (services, baseDir) {
     this._registeredServices = {};
 
-    this._preDefinedServices = services[env];
+    this._preDefinedServices = services;
     BASE_DIR = baseDir || BASE_DIR;
 };
 

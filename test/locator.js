@@ -2,9 +2,14 @@ var sinon = require('sinon');
 
 var Locator = require('../locator');
 
-var locator = new Locator('test');
+var services = require('../examples/services').test;
+var basePath = __dirname + '/../examples';
+
+var locator = new Locator(services, basePath);
 
 describe('locator', function () {
+    var ClassLogger = require('../examples/Services/ClassLogger');
+
     it('should have properties get and register', function () {
         locator.should.have.property('get');
         locator.should.have.property('register');
@@ -31,7 +36,6 @@ describe('locator', function () {
             path: 'Test/test'
         };
         locator._preDefinedServices['test'] = testServise;
-        var ClassLogger = require('../Log/ClassLogger');
 
         var _require = locator._require;
 
@@ -52,7 +56,7 @@ describe('locator', function () {
 
         it('should load params if params are defined', function () {
             var logger = locator.get('classLogger');
-            var services = require('../services').test;
+            var services = require('../examples/services').test;
             logger.level.should.equal(services.classLogger.params[0]);
         });
 
@@ -108,7 +112,6 @@ describe('locator', function () {
 
             result[1].should.be.a('object');
 
-            var ClassLogger = require('../Log/ClassLogger');
             result[1].should.be.an.instanceOf(ClassLogger);
             result[0].should.equal(params[0]);
         });
