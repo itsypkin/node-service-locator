@@ -6,6 +6,11 @@
     "name": "jhony_chikens",
     "email": "evts85@gmail.com"
   },
+  "main": "./locator.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jhony-chikens/node-service-locator.git"
+  },
   "devDependencies": {
     "mocha": "*",
     "should": "*",
