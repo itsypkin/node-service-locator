@@ -1,31 +1,37 @@
+'use strict';
 
 var path = require('path');
 
 var BASE_DIR = __dirname;
 var DEPENDENCY_MARKER = '@';
 
-var Locator = function (services, baseDir) {
-    this._registeredServices = {};
+var registeredServices = {},
+    preDefinedServices = {};
 
-    this._preDefinedServices = services;
-    BASE_DIR = baseDir || BASE_DIR;
-};
+module.exports = {
 
-Locator.prototype = {
+    init: function (services, baseDir) {
+        registeredServices = {};
+
+        preDefinedServices = services;
+        BASE_DIR = baseDir || BASE_DIR;
+
+    },
+
     /**
      * get services by name
      * @param  {String} serviceName
      * @return {Mixed}
      */
     get: function (serviceName) {
-        var registeredService = this._registeredServices[serviceName];
+        var registeredService = registeredServices[serviceName];
 
         if (registeredService) {
             return registeredService;
         }
 
-        if (this._preDefinedServices[serviceName]) {
-            return this._loadService(this._preDefinedServices[serviceName]);
+        if (preDefinedServices[serviceName]) {
+            return this._loadService(preDefinedServices[serviceName]);
         } else {
             return null;
         }
@@ -38,7 +44,22 @@ Locator.prototype = {
      * @param  {Mixed} service
      */
     register: function (serviceName, service) {
-        this._registeredServices[serviceName] = service;
+        registeredServices[serviceName] = service;
+    },
+
+    /**
+     * get list of arguments last of them should be a function
+     * that will be invoked, other arguments should be a names of services
+     * that will be passed to function as parameters
+     * 
+     * @return {Mixed} result of function execution
+     */
+    invoke: function () {
+        var args = Array.prototype.slice.call(arguments);
+
+        var func = args.pop();
+        var parameters = args.map(this.get.bind(this));
+        return func.apply(null, parameters);
     },
 
     /**
@@ -115,5 +136,3 @@ Locator.prototype = {
         return result;
     }
 };
-
-module.exports = Locator;

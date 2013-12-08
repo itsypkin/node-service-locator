@@ -14,10 +14,11 @@
   "devDependencies": {
     "mocha": "*",
     "should": "*",
-    "sinon": "*"
+    "sinon": "*",
+    "rewire": "*"
   },
   "scripts": {
-    "test": "make test"
+    "test": "mocha -r should -R spec --recursive"
   },
   "engines": {
     "node": "*"

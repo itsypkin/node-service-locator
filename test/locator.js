@@ -1,11 +1,15 @@
-var sinon = require('sinon');
+/*global describe, it: true*/
+'use strict';
 
-var Locator = require('../locator');
+var rewire = require('rewire'),
+    sinon = require('sinon');
+
+var locator = rewire('../locator');
 
 var services = require('../examples/services').test;
 var basePath = __dirname + '/../examples';
 
-var locator = new Locator(services, basePath);
+locator.init(services, basePath);
 
 describe('locator', function () {
     var ClassLogger = require('../examples/Services/ClassLogger');
@@ -35,14 +39,17 @@ describe('locator', function () {
         var testServise = {
             path: 'Test/test'
         };
-        locator._preDefinedServices['test'] = testServise;
+        var preDefinedServices = locator.__get__('preDefinedServices');
+        preDefinedServices.test = testServise;
+
+        locator.__set__('preDefinedServices', preDefinedServices);
 
         var _require = locator._require;
 
         it('should require preDefined services ', function () {
 
             locator._require = sinon.spy();
-            var result = locator.get('test');
+            locator.get('test');
             locator._require.called.should.be.true;
             locator._require.getCall(0).args[0].should.equal(testServise.path);
 
@@ -114,6 +121,22 @@ describe('locator', function () {
 
             result[1].should.be.an.instanceOf(ClassLogger);
             result[0].should.equal(params[0]);
+        });
+    });
+
+
+    describe('#invoke', function () {
+        it.only('should invoke last parameter and put all previous from services as parametes to it', function () {
+            var foo = {name: 'bar'};
+            locator.register('foo', foo);
+
+            var spy = sinon.spy();
+
+            locator.invoke('foo', spy);
+
+            spy.called.should.be.true;
+
+            spy.getCall(0).args[0].should.eql(foo);
         });
     });
 });

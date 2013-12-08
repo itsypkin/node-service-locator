@@ -3,8 +3,8 @@ var serviceList = require('./services').test;
 
 var basePath = __dirname;
 
-var Locator = require('../locator');
-var locator = new Locator(serviceList, basePath);
+var locator = require('../locator');
+locator.init(serviceList, basePath);
 
 //load simple object
 var logger = locator.get('logger');
