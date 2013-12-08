@@ -1,12 +1,14 @@
 {
-  "name": "locator",
-  "description": "service locator",
-  "version": "0.0.1",
+  "name": "node-service-locator",
+  "description": "service locator for node.js apps",
+  "version": "0.0.2",
   "author": {
     "name": "jhony_chikens",
     "email": "evts85@gmail.com"
   },
+  "keywords": ["di", "dependency", "injection", "service", "locator"],
   "main": "./locator.js",
+  "homepage": "https://github.com/jhony-chikens/node-service-locator",
   "repository": {
     "type": "git",
     "url": "git://github.com/jhony-chikens/node-service-locator.git"
